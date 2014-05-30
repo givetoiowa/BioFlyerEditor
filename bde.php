@@ -102,7 +102,7 @@ function bde_edit_page() {
 			<li><input type='radio' name='add-form-toggle' value='2'>Add Area</li>
 		</ul>
 		<div class="add-form-1">
-			<div class="bfa-msg"></div>
+			<div class="bfa-msg" id="error-message"></div>
 		   	<form name="bf-add" enctype="multipart/form-data" method="post" action="">
 				<p>
 					<label for="bf-area-add">Select an area:</label>
@@ -145,7 +145,7 @@ function bde_edit_page() {
 			<li><input type='radio' name='edit-form-toggle' value='2'>Edit Area</li>
 		</ul>
 		<div class="edit-form-1">
-			<div class="bfe-msg" id="target-bfe-message"></div>
+			<div class="bfe-msg" id="error-message"></div>
 			<form name="bf-edit" method="post" action="">
 				<p style="font-size:1.2em">Find a bioflyer by entering in a name and area in the fields below and selecting a result from the list.</p>
 				<p>
@@ -186,7 +186,7 @@ function bde_edit_page() {
 			</form>
 		</div>
 		<div class="edit-form-2">
-			<div class="ae-msg"></div>
+			<div class="ae-msg" id="error-message"></div>
 			<form name="area-edit" method="post" action="">
 				<p>
 					<label for="area-edit-select">Area:</label>
@@ -215,7 +215,7 @@ function bde_edit_page() {
 				<li><input type='radio' name='delete-form-toggle' value='2'>Delete Area</li>
 			</ul>
 			<div class="delete-form-1">
-				<div class="bfd-msg"></div>
+				<div class="bfd-msg" id="error-message"></div>
 				<form name="bf-delete" method="post" action="">
 					<p>
 						<label for="bf-title-delete">Name:</label>

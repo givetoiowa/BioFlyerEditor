@@ -50,7 +50,7 @@ jQuery(document).ready(function($) {
       }
       if (area_id == "-1" || title == "" || content == "") {
         var err_msg = ""
-        $(".bfa-msg").toggleClass("error")
+        $(".bfa-msg").addClass("error")
         if (area_id == "-1") {
           err_msg = err_msg + "<p>Please select an area for the bioflyer you are editing.</p>"
         }
@@ -77,28 +77,8 @@ jQuery(document).ready(function($) {
         url: "http://www.uifoundation.org/scholarships/wp-content/plugins/bioflyer-editor2/bde-process.php",
         data: dataObj,
         success: function(data) {
-          switch (data.status) {
-            case "success":
-              $(".bfa-msg").toggleClass("updated")
-                          .html("<p>Success! The bioflyer has been added to the database.</p>")
-                          .show();
-              break;
-            case "connect_err":
-              $(".bfa-msg").toggleClass("error")
-                          .html("<p>Uh oh! Something went wrong when contacting the database. Please inform someone from the web team about this error.</p>")
-                          .show();
-              break;
-            case "bf_exists_err":
-              $(".bfa-msg").toggleClass("error")
-                          .html("<p>A bioflyer with that name already exists. Please choose a different name and try again.</p>")
-                          .show();
-              break;
-            default:
-              $(".bfa-msg").toggleClass("error")
-                          .html("<p>Uh oh! Something went wrong. Please inform someone from the web team about this error.</p>")
-                          .show();
-              break;
-          }
+          console.log(data.status);
+          handle_error_message('.bfa-msg', data.status, 'add');
         }
       });
       // prevent our form from submitting, avoiding a page refresh
@@ -131,22 +111,22 @@ jQuery(document).ready(function($) {
         success: function(data) {
           switch (data.status) {
             case "success":
-              $(".aa-msg").toggleClass("updated")
+              $(".aa-msg").addClass("updated")
                           .html("<p>Success! The new area has been added to the database.</p>")
                           .show();
               break;
             case "connect_err":
-              $(".aa-msg").toggleClass("error")
+              $(".aa-msg").addClass("error")
                           .html("<p>Uh oh! Something went wrong when contacting the database. Please inform someone from the web team about this error.</p>")
                           .show();
               break;
             case "area_exists_err":
-              $(".aa-msg").toggleClass("error")
+              $(".aa-msg").addClass("error")
                           .html("<p>An area with that name already exists. Please choose a different name and try again.</p>")
                           .show();
               break;
             default:
-              $(".aa-msg").toggleClass("error")
+              $(".aa-msg").addClass("error")
                           .html("<p>Uh oh! Something went wrong. Please inform someone from the web team about this error.</p>")
                           .show();
               break;
@@ -181,7 +161,7 @@ jQuery(document).ready(function($) {
       }
       if (area_id == "-1" || title == "" || content == "") {
         var err_msg = ""
-        $(".bfe-msg").toggleClass("error")
+        $(".bfe-msg").addclass("error")
         if (area_id == "-1") {
           err_msg = err_msg + "<p>Please select an area for the bioflyer you are editing.</p>"
         }
@@ -209,7 +189,7 @@ jQuery(document).ready(function($) {
         url: "http://www.uifoundation.org/scholarships/wp-content/plugins/bioflyer-editor2/bde-process.php",
         data: dataObj,
         success: function(data) {
-          handle_error_message(".bfe-msg", data.status);
+          handle_error_message(".bfe-msg", data.status, 'edit');
         }
       });
       // prevent our form from submitting, avoiding a page refresh
@@ -389,26 +369,11 @@ jQuery(document).ready(function($) {
           url: "http://www.uifoundation.org/scholarships/wp-content/plugins/bioflyer-editor2/bde-process.php",
           data: dataString,
           success: function(data) {
-              console.log(data)
-            switch (data.status) {
-              case "success":
-                $(".bfd-msg").toggleClass("updated")
-                            .html("<p>Success! The bioflyer has been removed from the database.</p>")
-                            .show();
-                break;
-              case "connect_err":
-                $(".bfd-msg").toggleClass("error")
-                            .html("<p>Uh oh! Something went wrong when contacting the database. Please inform someone from the web team about this error.</p>")
-                            .show();
-                break;
-              default:
-                $(".bfd-msg").toggleClass("error")
-                            .html("<p>Uh oh! Something went wrong. Please inform someone from the web team about this error.</p>")
-                            .show();
-                break;
-            }
+            handle_error_message('.bfd-msg', data.status, 'delete');
           }
         });
+        // refresh page to clear search results
+        timed_page_refresh();
       }
       // prevent our form from submitting, avoiding a page refresh
       return false;
@@ -572,40 +537,80 @@ jQuery(document).ready(function($) {
   });
 
 // function to handle error messages 
- function handle_error_message(messageClass, status){
+function handle_error_message(messageClass, status, type){
   // Remove any error messages that have already been applied
-  document.getElementById('target-bfe-message').className = "";
-  document.getElementById('target-bfe-message').className = "bfe-msg";
-  
-  switch (status) {
-    case "success":
-        $(messageClass).addClass("updated")
-        .html("<p>Success! The bioflyer has been updated.</p>")
+  $('#error-message').attr('class', messageClass).css('display', 'block');
+  if(type == "edit"){
+    console.log('edit');
+    switch (status) {
+      case "success":
+          $(messageClass).addClass("updated")
+          .html("<p>Success! The bioflyer has been updated.</p>")
+          .show();
+      break;
+      case "connect_err":
+        $(messageClass).addClass("error")
+        .html("<p>Uh oh! Something went wrong when contacting the database. Please inform someone from the web team about this error.</p>")
         .show();
-    break;
-    case "connect_err":
-      $(messageClass).addClass("error")
-      .html("<p>Uh oh! Something went wrong when contacting the database. Please inform someone from the web team about this error.</p>")
-      .show();
-    break;
-    case "bf_exists_err":
-      $(messageClass).addClass("error")
-      .html("<p>A bioflyer with that name already exists. Please choose a different name and try again.</p>")
-      .show();
-    break;
-    case "no_change":
-      $(messageClass).addClass("error")
-      .html("<p>No changes to the bioflyer have been made. Please make a change and try again.</p>")
-      .show();
-    break;
-    default:
-      $(messageClass).addClass("error")
-      .html("<p>Uh oh! Something went wrong. Please inform someone from the web team about this error.</p>")
-      .show();
-    break;
-  }
+      break;
+      case "bf_exists_err":
+        $(messageClass).addClass("error")
+        .html("<p>A bioflyer with that name already exists. Please choose a different name and try again.</p>")
+        .show();
+      break;
+      case "no_change":
+        $(messageClass).addClass("error")
+        .html("<p>No changes to the bioflyer have been made. Please make a change and try again.</p>")
+        .show();
+      break;
+      default:
+        $(messageClass).addClass("error")
+        .html("<p>Uh oh! Something went wrong. Please inform someone from the web team about this error.</p>")
+        .show();
+      break;
+    }
+  } else if(type == "add"){
+      switch (status) {
+        case "success":
+           $('#error-message').attr('class', 'bfa-msg updated').html("Success! The bioflyer has been added to the database.");
+          alert("Success! The bioflyer has been added to the database.");
+          // refresh page to clear fields
+          timed_page_refresh();
+          break;
+        case "connect_err":
+          $('#error-message').attr('class', 'bfa-msg error').html("<p>Uh oh! Something went wrong when contacting the database. Please inform someone from the web team about this error.</p>");
+          break;
+        case "bf_exists_err":
+          console.log('bf_exists');
+          $('#error-message').attr('class', 'bfa-msg error').html("<p>A bioflyer with that name already exists. Please choose a different name and try again.</p>");
+          break;
+        default:
+           $('#error-message').attr('class', 'bfa-msg error').html("<p>Uh oh! Something went wrong. Please inform someone from the web team about this error.</p>");
+          break;
+      }
+    } else if(type === 'delete'){
+       console.log(data)
+        switch (status) {
+          case "success":
+            $('#error-message').attr('class', 'bfd-msg updated').html("<p>Success! The bioflyer has been removed from the database.</p>");
+            break;
+          case "connect_err":
+            $('#error-message').attr('class', 'bfd-msg error').html("<p>Uh oh! Something went wrong when contacting the database. Please inform someone from the web team about this error.</p>");
+            break;
+          default:
+            $('#error-message').attr('class', 'bfd-msg error').html("<p>Uh oh! Something went wrong. Please inform someone from the web team about this error.</p>");
+            break;
+        }
+    }
+    
  }
  
+ function timed_page_refresh(){
+  // refresh page after success
+  window.setTimeout(function(){
+    window.location.reload()
+  }, 420);
+ }
 }); /* end of as page load scripts */
 
 
