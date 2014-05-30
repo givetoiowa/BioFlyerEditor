@@ -1,0 +1,137 @@
+img {
+	border:none;
+}
+.congrats-msg {
+	display: none;
+}
+
+.print-footer-wrap {
+	display: none;
+}
+
+.quote_block {
+	padding-left: 10px !important;
+}
+
+.block-grid {
+	margin: 0px;
+}
+
+/* Styles for images/captions */
+.aligncenter {
+	margin:0 auto;
+	display: block;
+}
+
+.alignleft {
+	float:left;
+	margin-right:8px;
+}
+
+.alignright {
+	float:right;
+	margin-left:8px;
+
+}
+
+.wp-caption-text{
+	margin-bottom: 0;
+}
+/*
+ * Print Styles for Bioflyer Template Page
+ */
+@media print {
+
+	html, body {
+		height: 100%;
+		page-break-after:always;
+	}
+
+
+	.bf-give {
+		display: none;
+	}
+
+	#featured_profile {
+		display: none;
+	}
+
+	.bf-title {
+		width: 100% !important;
+		float: none !important;
+	}
+
+	.aligncenter, .alignright, .alignleft, img {
+		margin:5px;
+		float:left;
+		max-width:400px;
+		height:auto;
+	}
+
+	.wp-caption {
+		min-width:175px;
+	}
+	.wp-caption-text {
+		margin-bottom: 10px;
+		text-align: center;
+	}
+	.wp-caption a:link, .wp-caption a:visited {
+		color:transparent !important;
+		text-decoration: none !important;
+	}
+
+	.cart_breadcrumbs,
+	#footer,
+	ul.global_nav.right.hide-for-small,
+	.enclosure { display: none !important; }
+
+	section[role='main']:before {
+		content:url('http://www.uifoundation.org/scholarships/wp-content/themes/common_3/images/dome_black.png');
+		background-color: transparent;
+		border-right: 2px solid black;
+		left: -14.5%;
+		width: 14.5%;
+		-webkit-print-color-adjust: exact;
+		margin: auto;
+		padding-top: 40px;
+	}
+
+	.row {
+		min-width: 0px;
+	}
+
+	h4 {
+		margin-bottom: 40px;
+	}
+
+	section[role='main'] {
+		position: relative;
+		display: inline-block;
+		width: 80% !important;
+		min-height: 850px;
+		margin: 20px;
+		page-break-after:always;
+	}
+
+	.congrats-msg {
+		display: block;
+		padding-top: 40px;
+		font-weight: bold;
+		margin-bottom: 0;
+	}
+
+	.print-footer-wrap {
+		display: inline-block;
+		position: absolute;
+		left: 50%;
+		bottom: 10px;
+		text-align: center;
+		page-break-after:avoid;
+		z-index:;
+	}
+
+	.print-footer {
+		position: relative;
+		left: -50%;
+	}
+}
