@@ -8,7 +8,7 @@ The BioFlyers class in bde-BioFlyers.php has all of the logic for making queries
 ##Database Structure
 There are two tables bioflyers and bf areas.
 
-Columns for bioflyers
+Structure of bioflyers
 
 Field      |   Type       | Null | Key  | Default |     Extra      |
 -----------|--------------|------|------|---------|----------------|
@@ -17,3 +17,11 @@ area_id    | int(11)      |  NO	 | MUL  | NULL    |                |
 title	     | varchar(150) |	 YES | NULL	|         |                | 
 body	     | text	        |  YES | NULL	|         |                | 
 file_under | varchar(1) 	|  NO	 | NULL	|         |                |
+
+Structure of bf_areas
+
+Field   |   Type       | Null | Key  | Default |     Extra      |
+--------|--------------|------|------|---------|----------------|
+id      | int(11)      |  NO  | PRI  | NULL    | auto_increment |
+title   | varchar(150) |  Yes |      | NULL    |                |
+dir_url | varchar(150) |  Yes |      | NULL    |                | 
