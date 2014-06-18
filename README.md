@@ -14,9 +14,9 @@ Field      |   Type       | Null | Key  | Default |     Extra      |
 -----------|--------------|------|------|---------|----------------|
 id         | int(11)      |  NO  | PRI  | NULL    | auto_increment |
 area_id    | int(11)      |  NO	 | MUL  | NULL    |                |	 
-title	     | varchar(150) |	 YES | NULL	|         |                | 
-body	     | text	        |  YES | NULL	|         |                | 
-file_under | varchar(1) 	|  NO	 | NULL	|         |                |
+title	     | varchar(150) |	 YES |    	| NULL    |                | 
+body	     | text	        |  YES |    	| NULL    |                | 
+file_under | varchar(1) 	|  NO	 |    	| NULL    |                |
 
 Structure of bf_areas
 
